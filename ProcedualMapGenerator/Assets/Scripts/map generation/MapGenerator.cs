@@ -1,9 +1,8 @@
-﻿using System;
+﻿
 using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
 /// <summary>
 /// This class generates the an procedural map.
 /// </summary>
@@ -144,7 +143,7 @@ public class MapGenerator : MonoBehaviour
         }
 
         MapDisplay display = FindObjectOfType<MapDisplay>();
-        display.DrawMesh(MeshGenerator.GenerateTerrainMesh(noisemap, meshHeightMultiplier, meshHeightCurve, editorPrevieuwLOD, flatShading,GetComponent<MapGenerator>()), TextureGenerator.TextureFromColourMap(collorMap, mapSize, mapSize));
+        display.DrawMesh(MeshGenerator.GenerateTerrainMesh(noisemap, meshHeightMultiplier, meshHeightCurve, editorPrevieuwLOD, flatShading, GetComponent<MapGenerator>()), TextureGenerator.TextureFromColourMap(collorMap, mapSize, mapSize));
 
         StartCoroutine(ColorMap());
     }
@@ -183,7 +182,7 @@ public class MapGenerator : MonoBehaviour
     private IEnumerator ColorMap()
     {
         yield return new WaitForEndOfFrame();
-		Mesh mesh = terrainObject.GetComponent<MeshFilter>().mesh;
+        Mesh mesh = terrainObject.GetComponent<MeshFilter>().mesh;
         Vector3[] vertices = mesh.vertices;
         Color[] colors = new Color[vertices.Length];
         for (int i = 0; i < vertices.Length; i++)
@@ -197,21 +196,12 @@ public class MapGenerator : MonoBehaviour
     }
 
     /// <summary>
-    /// Sets the octaves value to the slider.
-    /// </summary>
-    /// <param name="slider">Slider that will set the octaves value.</param>
-    public void SetOctaves(Slider slider)
-    {
-        ocataves = (int)slider.value;
-    }
-
-    /// <summary>
     /// Sets the mapSeed value to the text.
     /// </summary>
     /// <param name="text">text that will set the mapSeed value.</param>
     public void MapSeed(TextMeshProUGUI text)
     {
-        mapSeed = int.Parse(text.text);
+        int.TryParse(text.text, out mapSeed);
     }
 
     /// <summary>
