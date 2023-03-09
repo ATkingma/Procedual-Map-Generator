@@ -1,6 +1,5 @@
 ﻿
 using System.Collections;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 /// <summary>
@@ -199,9 +198,18 @@ public class MapGenerator : MonoBehaviour
     /// Sets the mapSeed value to the text.
     /// </summary>
     /// <param name="text">text that will set the mapSeed value.</param>
-    public void MapSeed(TextMeshProUGUI text)
+    public void MapSeed(Text text)
     {
-        int.TryParse(text.text, out mapSeed);
+        int myInt;
+
+        if (int.TryParse(text.text, out myInt))
+        {
+            mapSeed = myInt;
+        }
+        else
+        {
+            Debug.Log("Unable to parse value");
+        }
     }
 
     /// <summary>
